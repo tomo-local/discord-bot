@@ -1,7 +1,7 @@
 import discord
 
-from utils import config
-from functions import message as fun_message
+from src.utils import config
+from src.functions import message as fun_message
 
 
 intents = discord.Intents.all()
