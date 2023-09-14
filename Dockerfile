@@ -14,4 +14,4 @@ COPY . /app
 
 
 
-CMD ["python", "-u", "./src/main.py"]
+CMD ["python", "-u", "/app/src/main.py"]
