@@ -33,7 +33,8 @@ async def on_message(message):
     if client.user in message.mentions:
         await fun_message.reply(message)
 
-    print(fun_message.get_data(message))
+    if message.content.startswith("/"):
+        await fun_message.slash_command(message)
 
 
 if __name__ == "__main__":

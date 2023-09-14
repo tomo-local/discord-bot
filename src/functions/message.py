@@ -5,7 +5,7 @@ async def reply(message):
     # コマンドに対応するリストデータを取得する関数を定義
 
 
-def get_data(message):
+async def slash_command(message):
     command = message.content
     data_table = {
         "/members": message.guild.members,  # メンバーのリスト
@@ -14,4 +14,9 @@ def get_data(message):
         "/voice_channels": message.guild.voice_channels,  # ボイスチャンネルのリスト
         "/category_channels": message.guild.categories,  # カテゴリチャンネルのリスト
     }
-    return data_table.get(command, "無効なコマンドです")
+
+    data = data_table.get(command, "無効なコマンドです")
+    member_names = [member.name for member in data]
+
+    for name in member_names:
+        await message.channel.send(name)
