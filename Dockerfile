@@ -6,7 +6,7 @@ RUN apt-get -y install locales && \
   localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
 
 
-COPY ./requirements.txt /app/
+COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
 
