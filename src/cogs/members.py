@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 
 
@@ -6,17 +7,37 @@ class MembersCog(commands.Cog):
         super().__init__()
         self.bot: commands.Bot = bot
 
-    @commands.command(name="members", description="get member list")
-    async def members(self, ctx):
+    @commands.hybrid_command(name="members", description="get member list")
+    async def members(self, ctx, name: str = None):
         members = ctx.guild.members
 
-        member_names = [member.name for member in members]
+        embed = discord.Embed(title="Member List", color=discord.Color.blue())
 
-        formatted_names = "\n".join([f"・{name}" for name in member_names])
+        if name:
+            filtered_members = [
+                member for member in members if name.lower() in member.name.lower()
+            ]
 
-        await ctx.send(f"{formatted_names}")
+        else:
+            filtered_members = members
 
-    @commands.command(name="test", description="test")
+        for member in filtered_members:
+            member_name = member.name
+            member_display_name = (
+                member.display_name if member.display_name else member_name
+            )
+            member_roles = ", ".join([role.name for role in member.roles])
+            embed.add_field(
+                name=f"{member_display_name} ({member_name})",
+                value=member_roles,
+                inline=False,
+            )
+
+        # 埋め込みメッセージを送信
+
+        await ctx.send(embed=embed)
+
+    @commands.hybrid_command(name="test", description="test")
     async def test(self, ctx):
         print("test")
         await ctx.send("test")

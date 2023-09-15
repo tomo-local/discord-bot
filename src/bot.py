@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from cogs.members import MembersCog
 
 from utils import config
 
@@ -34,7 +33,7 @@ class Bot(commands.Bot):
 
 
 intents = discord.Intents.all()
-activity = discord.Activity(name="", type=discord.ActivityType.competing)
+activity = discord.Activity(name="local", type=discord.ActivityType.competing)
 
 bot = Bot(
     command_prefix=prefix,
