@@ -3,20 +3,21 @@ from discord.ext import commands
 
 from utils import config
 
-INITIAL_EXTENSIONS = [
-    "cogs.members",
-]
+INITIAL_EXTENSIONS = ["cogs.members", "cogs.roles"]
 prefix = ["!", "?", "/"]  # list型で複数の接頭辞に対応
 
 
 class Bot(commands.Bot):
     async def setup_hook(self):
+        print("Start setup_hook")
         for cog in INITIAL_EXTENSIONS:
             try:
                 await self.load_extension(cog)
             except Exception as e:
                 print(e)
         await self.tree.sync()
+        print("End setup_hook")
+        print("-" * 10)
 
     async def on_ready(self):
         print("Logged in as")
