@@ -33,14 +33,7 @@ class MembersCog(commands.Cog):
                 inline=False,
             )
 
-        # 埋め込みメッセージを送信
-
         await ctx.send(embed=embed)
-
-    @commands.hybrid_command(name="test", description="test")
-    async def test(self, ctx):
-        print("test")
-        await ctx.send("test")
 
 
 async def setup(bot: commands.Bot):
