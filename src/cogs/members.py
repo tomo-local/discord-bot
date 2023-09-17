@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+from functions.modal.self_introduction import SelfIntroductionModal
+import asyncio
 
 
 class MembersCog(commands.Cog):
@@ -7,17 +9,28 @@ class MembersCog(commands.Cog):
         super().__init__()
         self.bot: commands.Bot = bot
 
-    @commands.hybrid_command(name="members", description="get member list")
-    async def members(self, ctx, name: str = None):
-        members = ctx.guild.members
+    @commands.hybrid_command(name="self_introduction", description="self-introduction")
+    async def self_introduction(self, ctx: commands.Context):
+        modal = SelfIntroductionModal()
+        await ctx.interaction.response.send_modal(modal)
 
+    @commands.hybrid_command(name="test", description="self-introduction")
+    async def heavy_task(self, ctx: commands.Context):
+        await ctx.defer()
+        await asyncio.sleep(5)
+
+        modal = SelfIntroductionModal()
+        await ctx.interaction.response.send_modal(modal)
+
+    @commands.hybrid_command(name="members", description="get member list")
+    async def members(self, ctx: commands.Context, name: str = None):
+        members = ctx.guild.members
         embed = discord.Embed(title="Member List", color=discord.Color.blue())
 
         if name:
             filtered_members = [
                 member for member in members if name.lower() in member.name.lower()
             ]
-
         else:
             filtered_members = members
 
@@ -33,14 +46,7 @@ class MembersCog(commands.Cog):
                 inline=False,
             )
 
-        # 埋め込みメッセージを送信
-
         await ctx.send(embed=embed)
-
-    @commands.hybrid_command(name="test", description="test")
-    async def test(self, ctx):
-        print("test")
-        await ctx.send("test")
 
 
 async def setup(bot: commands.Bot):

@@ -11,3 +11,7 @@ class TextChannelsCog(commands.Cog):
         text_channel_names = [text_channel.name for text_channel in text_channels]
         formatted_names = "\n".join([f"・{name}" for name in text_channel_names])
         await ctx.send(formatted_names)
+
+
+async def setup(bot: commands.Bot):
+    await bot.add_cog(TextChannelsCog(bot))
