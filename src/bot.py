@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from utils import config
 
-INITIAL_EXTENSIONS = ["cogs.members", "cogs.roles", "cogs.memo"]
+INITIAL_EXTENSIONS = ["cogs.owner", "cogs.members", "cogs.roles", "cogs.memo"]
 PREFIX = ["!", "?", "/"]
 
 
