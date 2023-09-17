@@ -8,7 +8,10 @@ class RoleCog(commands.Cog):
         self.bot: commands.Bot = bot
 
     @commands.Cog.listener()
-    async def on_member_join(self, member):
+    async def on_member_join(
+        self,
+        member: discord.Member,
+    ):
         if member.bot:
             role = discord.utils.get(member.guild.roles, name="bot")
         else:
@@ -17,7 +20,12 @@ class RoleCog(commands.Cog):
         await member.add_roles(role)
 
     @commands.hybrid_command(name="set_role", description="on role")
-    async def set_role(self, ctx, member: discord.Member, role: discord.Role):
+    async def set_role(
+        self,
+        ctx: commands.Context,
+        member: discord.Member,
+        role: discord.Role,
+    ):
         if role in member.roles:
             embed = discord.Embed(
                 description=f"{member.mention} に {role.mention} 役職はすでに付与されています。",

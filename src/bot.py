@@ -3,8 +3,8 @@ from discord.ext import commands
 
 from utils import config
 
-INITIAL_EXTENSIONS = ["cogs.members", "cogs.roles"]
-prefix = ["!", "?", "/"]  # list型で複数の接頭辞に対応
+INITIAL_EXTENSIONS = ["cogs.members", "cogs.roles", "cogs.memo"]
+PREFIX = ["!", "?", "/"]
 
 
 class Bot(commands.Bot):
@@ -17,7 +17,7 @@ class Bot(commands.Bot):
                 print(e)
         await self.tree.sync()
         print("End setup_hook")
-        print("-" * 10)
+        print("-" * 20)
 
     async def on_ready(self):
         print("Logged in as")
@@ -28,16 +28,16 @@ class Bot(commands.Bot):
                 print(e)
 
         await self.tree.sync()  # リロードしたコグを再同期する
-        print(self.user.name)  # リロードの完遂を知らせる
-        print(self.user.id)
-        print("------")
+        print(f"bot name: {self.user.name}")  # リロードの完遂を知らせる
+        print(f"bot id: {self.user.id}")
+        print("-" * 20)
 
 
 intents = discord.Intents.all()
 activity = discord.Activity(name="local", type=discord.ActivityType.competing)
 
 bot = Bot(
-    command_prefix=prefix,
+    command_prefix=PREFIX,
     status=discord.Status.online,
     intents=intents,
     activity=activity,
