@@ -18,9 +18,13 @@ class MemoModal(Modal, title="Memo"):
     async def on_submit(self, interaction: discord.Interaction):
         embed = discord.Embed(description=self.details.value)
         embed.set_author(icon_url=interaction.user.avatar.url, name=self.name.value)
+
         dt_now = datetime.datetime.now()
         now = dt_now.strftime("%Y/%m/%d")
 
-        embed.set_footer(text=f"time:{now}  creater: {interaction.user.display_name}")
+        embed.set_footer(
+            icon_url=interaction.user.avatar.url,
+            text=f"author: {interaction.user.display_name}\ntime:{now}",
+        )
 
         await interaction.response.send_message(embed=embed)
