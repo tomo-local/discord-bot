@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from functions.modal.self_introduction import SelfIntroductionModal
-import asyncio
+
+from components.modals.self_introduction import SelfIntroductionModal
 
 
 class MembersCog(commands.Cog):
@@ -11,15 +11,7 @@ class MembersCog(commands.Cog):
 
     @commands.hybrid_command(name="self_introduction", description="self-introduction")
     async def self_introduction(self, ctx: commands.Context):
-        modal = SelfIntroductionModal()
-        await ctx.interaction.response.send_modal(modal)
-
-    @commands.hybrid_command(name="test", description="self-introduction")
-    async def heavy_task(self, ctx: commands.Context):
-        await ctx.defer()
-        await asyncio.sleep(5)
-
-        modal = SelfIntroductionModal()
+        modal = SelfIntroductionModal(bot=self.bot)
         await ctx.interaction.response.send_modal(modal)
 
     @commands.hybrid_command(name="members", description="get member list")
