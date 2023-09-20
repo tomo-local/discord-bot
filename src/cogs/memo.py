@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from functions.modal.memo import MemoModal
+from components.modals.memo import MemoModal
 
 
 class MemoCog(commands.Cog):
@@ -10,7 +10,7 @@ class MemoCog(commands.Cog):
 
     @commands.hybrid_command(name="memo", description="You want to create the memo")
     async def memo(self, ctx: commands.Context):
-        modal = MemoModal()
+        modal = MemoModal(bot=self.bot)
         await ctx.interaction.response.send_modal(modal)
 
 
