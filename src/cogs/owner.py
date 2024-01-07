@@ -11,8 +11,11 @@ class OwnerCog(commands.Cog):
     @commands.is_owner()
     async def load(self, ctx: commands.Context, *, cog: str):
         await ctx.defer(ephemeral=True)
+
+        cogs = f"cogs.{cog}"
+
         try:
-            await self.bot.load_extension(cog)
+            await self.bot.load_extension(cogs)
             await self.bot.tree.sync()
 
         except Exception as e:
@@ -24,8 +27,10 @@ class OwnerCog(commands.Cog):
     @commands.is_owner()
     async def unload(self, ctx: commands.Context, *, cog: str):
         await ctx.defer(ephemeral=True)
+        cogs = f"cogs.{cog}"
+
         try:
-            await self.bot.unload_extension(cog)
+            await self.bot.unload_extension(cogs)
             await self.bot.tree.sync()
 
         except Exception as e:
@@ -38,8 +43,11 @@ class OwnerCog(commands.Cog):
     @commands.is_owner()
     async def reload(self, ctx: commands.Context, *, cog: str):
         await ctx.defer(ephemeral=True)
+
+        cogs = f"cogs.{cog}"
+
         try:
-            await self.bot.reload_extension(cog)
+            await self.bot.reload_extension(cogs)
             await self.bot.tree.sync()
 
         except Exception as e:

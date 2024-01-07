@@ -5,7 +5,7 @@ from utils import config
 
 INITIAL_EXTENSIONS = [
     "cogs.owner",
-    # "cogs.config",
+    "cogs.config",
     "cogs.members",
     "cogs.roles",
     "cogs.memo",
