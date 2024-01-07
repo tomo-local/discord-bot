@@ -1,8 +1,10 @@
 import discord
 from discord.ext import commands
 
-from components.view.self_introduction import SelfIntroductionButton
-from components.modals.self_introduction import SelfIntroductionModal
+from bot.common.self_introduction import (
+    SelfIntroductionButton,
+    SelfIntroductionModal,
+)
 
 
 class SampleViewA(discord.ui.View):

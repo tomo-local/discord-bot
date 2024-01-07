@@ -1,16 +1,14 @@
 import discord
 from discord.ext import commands
 
-from utils import config
-
 INITIAL_EXTENSIONS = [
-    "cogs.owner",
-    "cogs.config",
-    "cogs.members",
-    "cogs.roles",
-    "cogs.memo",
+    "bot.commands.admin.cog",
+    "bot.commands.channels.cog",
+    "bot.commands.config.cog",
+    "bot.commands.members.cog",
+    "bot.commands.memo.cog",
+    "bot.commands.roles.cog",
 ]
-PREFIX = ["!", "?", "/"]
 
 
 class Bot(commands.Bot):
@@ -72,16 +70,6 @@ class Bot(commands.Bot):
         await channel.send(embed=embed)
 
 
-intents = discord.Intents.all()
-activity = discord.Activity(name="local", type=discord.ActivityType.competing)
-
-bot = Bot(
-    command_prefix=PREFIX,
-    status=discord.Status.online,
-    intents=intents,
-    activity=activity,
-)
-
 # # エラー処理
 # @bot.event
 # async def on_command_error(ctx: commands.Context, error):
@@ -89,7 +77,3 @@ bot = Bot(
 #         return  # 何もしない
 #     if isinstance(error, commands.errors.CheckFailure):  # スラッシュコマンドでのみ動作するように制約
 #         await ctx.send("勘の良いガキは嫌いだよ", ephemeral=True)  # 権限を持たずにコマンドを実行した際に警告する
-
-
-if __name__ == "__main__":
-    bot.run(config.TOKEN)

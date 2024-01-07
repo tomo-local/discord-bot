@@ -1,18 +1,11 @@
 import discord
 from discord.ext import commands
 
-from components.modals.self_introduction import SelfIntroductionModal
-
 
 class MembersCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         super().__init__()
         self.bot: commands.Bot = bot
-
-    @commands.hybrid_command(name="self_introduction", description="self-introduction")
-    async def self_introduction(self, ctx: commands.Context):
-        modal = SelfIntroductionModal(bot=self.bot)
-        await ctx.interaction.response.send_modal(modal)
 
     @commands.hybrid_command(name="members", description="get member list")
     async def members(self, ctx: commands.Context, name: str = None):

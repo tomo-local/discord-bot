@@ -2,7 +2,7 @@ import discord
 from discord.ui import Modal
 from discord.ext import commands
 
-from components.embed.memo import MemoEmbed
+from .embed import MemoEmbed
 
 
 class MemoModal(Modal, title="Memo"):

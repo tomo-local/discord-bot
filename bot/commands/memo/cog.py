@@ -1,6 +1,5 @@
-import discord
 from discord.ext import commands
-from components.modals.memo import MemoModal
+from .modal import MemoModal
 
 
 class MemoCog(commands.Cog):
