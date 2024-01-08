@@ -1,5 +1,5 @@
 from bot import Bot
-from bot.utils import config
+from bot.core.utils import config
 
 import discord
 
