@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from utils import config
+from core.utils import config
 
 INITIAL_EXTENSIONS = [
     "cogs.owner",

@@ -1,25 +1,26 @@
 import discord
 from discord.ext import commands
+from discord import Interaction, ui, SelectOption
 
 from components.view.self_introduction import SelfIntroductionButton
 from components.modals.self_introduction import SelfIntroductionModal
 
 
-class SampleViewA(discord.ui.View):
+class SampleViewA(ui.View):
     def __init__(self, bot: commands.Bot):
         super().__init__(timeout=180)
         self.bot = bot
 
     @discord.ui.select(
-        cls=discord.ui.Select,
+        cls=ui.Select,
         placeholder="What is your favorite fruit?",
         options=[
-            discord.SelectOption(label="自己紹介", value="自己紹介"),
-            discord.SelectOption(label="test", value="test"),
-            discord.SelectOption(label="a", value="aaa"),
+            SelectOption(label="自己紹介", value="自己紹介"),
+            SelectOption(label="test", value="test"),
+            SelectOption(label="a", value="aaa"),
         ],
     )
-    async def select(self, interaction: discord.Interaction, select: discord.ui.Select):
+    async def select(self, interaction: Interaction, select: ui.Select):
         print(select.values[0])
 
         if select.values[0] == "自己紹介":

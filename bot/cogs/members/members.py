@@ -1,4 +1,4 @@
-import discord
+from discord import Embed, Color
 from discord.ext import commands
 
 from components.modals.self_introduction import SelfIntroductionModal
@@ -17,7 +17,7 @@ class MembersCog(commands.Cog):
     @commands.hybrid_command(name="members", description="get member list")
     async def members(self, ctx: commands.Context, name: str = None):
         members = ctx.guild.members
-        embed = discord.Embed(title="Member List", color=discord.Color.blue())
+        embed = Embed(title="Member List", color=Color.blue())
 
         if name:
             filtered_members = [
