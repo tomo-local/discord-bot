@@ -1,5 +1,6 @@
-import discord
+from discord import Embed, Member, Role, Color
 from discord.ext import commands
+from discord.utils import get
 
 
 class RoleCog(commands.Cog):
@@ -10,12 +11,12 @@ class RoleCog(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(
         self,
-        member: discord.Member,
+        member: Member,
     ):
         if member.bot:
-            role = discord.utils.get(member.guild.roles, name="bot")
+            role = get(member.guild.roles, name="bot")
         else:
-            role = discord.utils.get(member.guild.roles, name="member")
+            role = get(member.guild.roles, name="member")
 
         await member.add_roles(role)
 
@@ -23,28 +24,28 @@ class RoleCog(commands.Cog):
     async def set_role(
         self,
         ctx: commands.Context,
-        member: discord.Member,
-        role: discord.Role,
+        member: Member,
+        role: Role,
     ):
         if role in member.roles:
-            embed = discord.Embed(
+            embed = Embed(
                 description=f"{member.mention} に {role.mention} 役職はすでに付与されています。",
-                color=discord.Color.blue(),
+                color=Color.blue(),
             )
             await ctx.send(embed=embed)
             return
 
         try:
             await member.add_roles(role)
-            embed = discord.Embed(
+            embed = Embed(
                 description=f"{member.mention} に {role.mention} 役職が付与されました。",
-                color=discord.Color.green(),
+                color=Color.green(),
             )
         except Exception as e:
             print(e)
-            embed = discord.Embed(
+            embed = Embed(
                 description=f"{member.mention} に　{role.mention} 役職を付与することはできません。",
-                color=discord.Color.red(),
+                color=Color.red(),
             )
 
         await ctx.send(embed=embed)
