@@ -4,11 +4,11 @@ from discord.ext import commands
 from core.utils import config
 
 INITIAL_EXTENSIONS = [
-    "cogs.owner",
-    "cogs.config",
-    "cogs.members",
-    "cogs.roles",
-    "cogs.memo",
+    "cogs.admin.admin",
+    "cogs.admin.roles",
+    "cogs.channels.text_channels",
+    "cogs.channels.memo" "cogs.config.config",
+    "cogs.members.members",
 ]
 PREFIX = ["!", "?", "/"]
 
