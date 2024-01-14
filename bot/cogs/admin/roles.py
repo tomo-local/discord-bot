@@ -1,12 +1,40 @@
-from discord import Embed, Member, Role, Color
+from discord import Embed, Member, Role, Color, Forbidden
 from discord.ext import commands
 from discord.utils import get
 
 
-class RoleCog(commands.Cog):
-    def __init__(self, bot: commands.Bot):
-        super().__init__()
-        self.bot: commands.Bot = bot
+class Roles(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    async def _set_role(
+        self, ctx: commands.Context, member: Member, role: Role, *, check_user=True
+    ):
+        if member.get_role(role.id) is not None:
+            await ctx.send(
+                embed=Embed(
+                    description=f"{member.mention} に {role.mention} 役職はすでに付与されています。",
+                    color=Color.blue(),
+                )
+            )
+            return
+
+        try:
+            await member.add_roles(role)
+        except Forbidden:
+            await ctx.send(
+                embed=Embed(
+                    description=f"{member.mention} に {role.mention} 役職を付与することはできません。",
+                    color=Color.red(),
+                )
+            )
+        else:
+            await ctx.send(
+                embed=Embed(
+                    description=f"{member.mention} に {role.mention} 役職が付与されました。",
+                    color=Color.green(),
+                )
+            )
 
     @commands.Cog.listener()
     async def on_member_join(
@@ -27,29 +55,8 @@ class RoleCog(commands.Cog):
         member: Member,
         role: Role,
     ):
-        if role in member.roles:
-            embed = Embed(
-                description=f"{member.mention} に {role.mention} 役職はすでに付与されています。",
-                color=Color.blue(),
-            )
-            await ctx.send(embed=embed)
-            return
-
-        try:
-            await member.add_roles(role)
-            embed = Embed(
-                description=f"{member.mention} に {role.mention} 役職が付与されました。",
-                color=Color.green(),
-            )
-        except Exception as e:
-            print(e)
-            embed = Embed(
-                description=f"{member.mention} に　{role.mention} 役職を付与することはできません。",
-                color=Color.red(),
-            )
-
-        await ctx.send(embed=embed)
+        await self._set_role(ctx, member, role)
 
 
-async def setup(bot: commands.Bot):
-    await bot.add_cog(RoleCog(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(Roles(bot))

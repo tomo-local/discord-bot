@@ -1,4 +1,4 @@
-from bot import Bot
+from bot.bot import Bot
 from bot.core.utils import config
 
 import discord

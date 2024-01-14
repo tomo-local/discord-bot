@@ -1,7 +1,7 @@
 from discord.ext import commands
 
 
-class OwnerCog(commands.Cog):
+class Admin(commands.Cog):
     def __init__(self, bot: commands.Bot):
         super().__init__()
         self.bot = bot
@@ -52,8 +52,8 @@ class OwnerCog(commands.Cog):
         except Exception as e:
             await ctx.send(f"**`ERROR:`** {type(e).__name__} - {e}")
         else:
-            await ctx.send("**`REOLAD SUCCESS`**", ephemeral=True)
+            await ctx.send("**`RELOAD SUCCESS`**", ephemeral=True)
 
 
-async def setup(bot: commands.Bot):
-    await bot.add_cog(OwnerCog(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(Admin(bot))

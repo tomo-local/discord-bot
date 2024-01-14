@@ -1,14 +1,12 @@
 import discord
 from discord.ext import commands
 
-from core.utils import config
-
 INITIAL_EXTENSIONS = [
-    "cogs.admin.admin",
-    "cogs.admin.roles",
-    "cogs.channels.text_channels",
-    "cogs.channels.memo" "cogs.config.config",
-    "cogs.members.members",
+    "bot.cogs.admin.admin",
+    "bot.cogs.admin.roles",
+    "bot.cogs.channels.text_channels",
+    "bot.cogs.config.config",
+    "bot.cogs.members.members",
 ]
 PREFIX = ["!", "?", "/"]
 
@@ -21,6 +19,7 @@ class Bot(commands.Bot):
                 await self.load_extension(cog)
             except Exception as e:
                 print(e)
+                print(cog)
         await self.tree.sync()
         print("End setup_hook")
         print("-" * 20)
@@ -70,26 +69,3 @@ class Bot(commands.Bot):
         embed.add_field(name="default bot role", value="Not setting", inline=False)
 
         await channel.send(embed=embed)
-
-
-intents = discord.Intents.all()
-activity = discord.Activity(name="local", type=discord.ActivityType.competing)
-
-bot = Bot(
-    command_prefix=PREFIX,
-    status=discord.Status.online,
-    intents=intents,
-    activity=activity,
-)
-
-# # エラー処理
-# @bot.event
-# async def on_command_error(ctx: commands.Context, error):
-#     if ctx.author.bot:  # botが起こしたエラーなら
-#         return  # 何もしない
-#     if isinstance(error, commands.errors.CheckFailure):  # スラッシュコマンドでのみ動作するように制約
-#         await ctx.send("勘の良いガキは嫌いだよ", ephemeral=True)  # 権限を持たずにコマンドを実行した際に警告する
-
-
-if __name__ == "__main__":
-    bot.run(config.TOKEN)

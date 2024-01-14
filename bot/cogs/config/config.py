@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 from discord import Interaction, ui, SelectOption
 
-from components.view.self_introduction import SelfIntroductionButton
-from components.modals.self_introduction import SelfIntroductionModal
+from bot.components.view.self_introduction import SelfIntroductionButton
+from bot.components.modals.self_introduction import SelfIntroductionModal
 
 
 class SampleViewA(ui.View):
